@@ -7,6 +7,8 @@ export default function NewPage({ storageValue }) {
         <div className="pure-u-1-1">
           <form className="pure-form">
             <fieldset className="pure-group">
+              <input type="text" className="pure-input-1-2" placeholder="Name" />
+              <input type="text" className="pure-input-1-2" placeholder="E-mail address" />
               <input type="text" className="pure-input-1-2" placeholder="Your request" />
               <textarea className="pure-input-1-2" placeholder="Detail on your task. (ex. I'd like detail on the best crypto companies in North America, by location)." />
               <input type="text" className="pure-input-1-2" placeholder="Highest price (ex. 1 ETH)" />
