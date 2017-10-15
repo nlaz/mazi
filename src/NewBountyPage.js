@@ -1,16 +1,15 @@
 import React from "react";
 import moment from "moment";
 import getWeb3 from "./utils/getWeb3";
+import contract from "truffle-contract";
 
-import Web3 from "web3";
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+// import Web3 from "web3";
+// const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-const StandardBountiesContract = require("../build/contracts/StandardBounties.json");
-const json = require("../contracts.json");
+const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
+// const json = require("../contracts.json");
 
-const StandardBounties = web3.eth
-  .contract(StandardBountiesContract.abi)
-  .at(json.standardBountiesAddress);
+// const StandardBounties = web3.eth.contract(StandardBountiesContract.abi).at(testAddress);
 
 const deadlineOptions = [
   { label: "One month", value: "oneMonth" },
@@ -54,6 +53,7 @@ export default class NewBountyPage extends React.Component {
   onBountySubmit(e) {
     e.preventDefault();
     const contractInfo = this.state;
+    const { accounts } = this.state;
 
     const deadLineDate = moment()
       .add(1, "months")
@@ -62,25 +62,34 @@ export default class NewBountyPage extends React.Component {
 
     const payoutStringAmount = this.state.web3.toWei(contractInfo.contract_payout, "ether");
 
-    console.log("accounts", this.state.accounts);
-    console.log("StandardBounties", StandardBounties);
-    StandardBounties.issueAndActivateBounty(
-      this.state.accounts[0],
-      deadLineDate,
-      contractInfo,
-      payoutStringAmount,
-      0x0,
-      false,
-      0x0,
-      payoutStringAmount,
-      { from: this.state.accounts[0], value: payoutStringAmount },
-      (cerr, succ) => {
-        console.log("success", succ);
-        StandardBounties.getNumBounties((err, num) => {
-          console.log("new num bounties", num);
-        });
-      }
-    );
+    const simpleBounties = contract(SimpleBountiesContract);
+    simpleBounties.setProvider(this.state.web3.currentProvider);
+
+    var bountiesInstance;
+
+    simpleBounties
+      .deployed()
+      .then(instance => {
+        bountiesInstance = instance;
+        return bountiesInstance.issueBounty(
+          accounts[0],
+          accounts[0],
+          deadLineDate,
+          payoutStringAmount,
+          contractInfo,
+          { from: accounts[0], value: payoutStringAmount },
+          (cerr, succ) => {
+            instance.getNumBounties((err, num) => {});
+          }
+        );
+      })
+      .then(result => {
+        return bountiesInstance.getNumBounties.call();
+      })
+      .then(result => {
+        console.log("getNumBounties", result.toString());
+      })
+      .catch(error => console.log(error));
   }
 
   onInputChange(event) {

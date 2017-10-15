@@ -9,15 +9,6 @@ import DashboardPage from "./DashboardPage";
 import NewBountyPage from "./NewBountyPage";
 import RequestsPage from "./RequestsPage";
 
-import Web3 from "web3";
-const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io"));
-
-const json = require("../contracts.json");
-
-const StandardBounties = web3.eth
-  .contract(json.interfaces.StandardBounties)
-  .at(json.standardBountiesAddress);
-
 const PAGE = {
   HOME: "home",
   NEW: "new",
@@ -54,30 +45,15 @@ class App extends Component {
     getWeb3
       .then(results => {
         results.web3.eth.getAccounts((err, accs) => {
-          this.setState(
-            () => ({
-              web3: results.web3,
-              accounts: accs
-            }),
-            this.getBounties()
-          );
+          this.setState(() => ({
+            web3: results.web3,
+            accounts: accs
+          }));
         });
-
-        this.getBounties();
       })
       .catch(() => {
         console.log("Error finding web3.");
       });
-  }
-
-  getBounties() {
-    StandardBounties.getNumBounties((err, num) => {
-      console.log(err, num.toString());
-    });
-  }
-
-  componentWillUpdate() {
-    this.getBounties();
   }
 
   onNavClick(value) {
