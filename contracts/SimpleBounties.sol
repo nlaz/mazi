@@ -4,7 +4,8 @@ contract SimpleBounties {
 
     enum BountyStages {
       Active,
-      Dead
+      Dead,
+      Fulfilled
     }
 
     struct SimpleBounty {
@@ -71,9 +72,11 @@ contract SimpleBounties {
 
     function killBounty(uint _bountyId) public {
       bounties[_bountyId].bountyStage = BountyStages.Dead;
+      BountyKilled(_bountyId);
     }
 
     function fulfillBounty(uint _bountyId) public {
+      bounties[_bountyId].bountyStage = BountyStages.Fulfilled;
       fulfillments[_bountyId].push(Fulfillment(false, false, msg.sender));
       BountyFulfilled(_bountyId, msg.sender);
     }

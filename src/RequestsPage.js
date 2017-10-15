@@ -1,19 +1,17 @@
 import React from "react";
+import moment from "moment";
 import getWeb3 from "./utils/getWeb3";
 import contract from "truffle-contract";
 
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
-const convertBounty = bounty => ({
-  issuer: bounty[0],
-  arbiter: bounty[1],
-  deadline: bounty[2].toNumber(),
-  fulfillmentAmount: bounty[3].toNumber(),
-  title: bounty[4],
-  description: bounty[5]
-});
+const STAGES = {
+  ACTIVE: 0,
+  DEAD: 1,
+  FULFILLED: 2
+};
 
-export function RequestItem({ bounty }) {
+export function RequestItem({ bounty, index, onFulFullItem, onCancelItem }) {
   return (
     <div className="pure-u-1">
       <div className="left-div">
@@ -22,10 +20,19 @@ export function RequestItem({ bounty }) {
       </div>
       <div className="right-div">
         <p>{bounty.deadline}</p>
-        <strong>
-          <p>{bounty.fulfillmentAmount}</p>
-        </strong>
+        <p>
+          <strong>{bounty.fulfillmentAmount} ETH</strong>
+        </p>
+        {bounty.bountyStage === STAGES.ACTIVE && <p>Active</p>}
+        {bounty.bountyStage === STAGES.DEAD && <p>Cancelled</p>}
+        {bounty.bountyStage === STAGES.FULFILLED && <p>Fulfilled</p>}
       </div>
+      <button onClick={() => onFulFullItem(index)} className="pure-button">
+        Fulfill Request
+      </button>
+      <button onClick={() => onCancelItem(index)} className="pure-button">
+        Cancel Request
+      </button>
     </div>
   );
 }
@@ -41,6 +48,9 @@ export default class RequestPage extends React.Component {
     };
 
     this.getBounties = this.getBounties.bind(this);
+    this.convertBounty = this.convertBounty.bind(this);
+    this.onFulFullItem = this.onFulFullItem.bind(this);
+    this.onCancelItem = this.onCancelItem.bind(this);
   }
 
   componentWillMount() {
@@ -57,6 +67,20 @@ export default class RequestPage extends React.Component {
       .catch(() => {
         console.log("Error finding web3.");
       });
+  }
+
+  onFulFullItem(bountyId) {
+    const { web3, bountiesInstance } = this.state;
+    if (web3 && bountiesInstance) {
+      bountiesInstance.fulfillBounty(bountyId).then(result => console.log("fulfillBounty", result));
+    }
+  }
+
+  onCancelItem(bountyId) {
+    const { web3, bountiesInstance } = this.state;
+    if (web3 && bountiesInstance) {
+      bountiesInstance.killBounty(bountyId).then(result => console.log("killBounty", result));
+    }
   }
 
   getBounties(web3) {
@@ -80,29 +104,51 @@ export default class RequestPage extends React.Component {
         return Promise.all(getBounties);
       })
       .then(results => {
-        const bounties = results.map(result => convertBounty(result));
+        console.log("bounties", results);
+        const bounties = results.map(result => this.convertBounty(result));
         this.setState({
-          bounties: bounties
+          bounties: bounties,
+          bountiesInstance: bountiesInstance
         });
       });
   }
 
+  convertBounty(bounty) {
+    const { web3 } = this.state;
+
+    return {
+      issuer: bounty[0],
+      arbiter: bounty[1],
+      deadline: moment(bounty[2].toNumber()).format("ddd MMM M, YYYY"),
+      fulfillmentAmount: web3.fromWei(bounty[3].toNumber(), "ether"),
+      title: bounty[4],
+      description: bounty[5],
+      bountyStage: bounty[6].toNumber()
+    };
+  }
+
   render() {
     const { bounties } = this.state;
-    console.log(bounties);
     return (
       <div>
         <main className="container">
-          <div class="banner">
-            <h1 class="banner-head">
+          <div className="banner">
+            <h1 className="banner-head">
               Simple Pricing.<br />
               Try before you buy.
             </h1>
           </div>
-          <p>text</p>
           <div className="pure-g">
             <div className="pure-u-1-2">
-              {bounties.map((bounty, key) => <RequestItem key={key} bounty={bounty} />)}
+              {bounties.map((bounty, key) => (
+                <RequestItem
+                  key={key}
+                  index={key}
+                  onFulFullItem={this.onFulFullItem}
+                  onCancelItem={this.onCancelItem}
+                  bounty={bounty}
+                />
+              ))}
             </div>
           </div>
         </main>
