@@ -131,11 +131,10 @@ export default class RequestPage extends React.Component {
     const { bounties } = this.state;
     return (
       <div>
-        <main className="container">
+        <main className="container container-style">
           <div className="banner">
             <h1 className="banner-head">
-              Simple Pricing.<br />
-              Try before you buy.
+              Find Tasks<br />
             </h1>
           </div>
           <div className="pure-g">
