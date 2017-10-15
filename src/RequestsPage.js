@@ -4,11 +4,20 @@ import contract from "truffle-contract";
 
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
+const INDEX = {
+  ISSUER: 0,
+  ARBITER: 1,
+  DEADLINE: 2,
+  FULFILLMENT_AMOUNT: 3,
+  TITLE: 4,
+  DESCRIPTION: 5
+};
+
 export function RequestItem({ bounty }) {
   return (
     <div className="pure-u-1">
-      <h2>{bounty[4]}</h2>
-      <p>{bounty[5]}</p>
+      <h2>{bounty[INDEX.TITLE]}</h2>
+      <p>{bounty[INDEX.DESCRIPTION]}</p>
     </div>
   );
 }
@@ -63,7 +72,6 @@ export default class RequestPage extends React.Component {
         return Promise.all(getBounties);
       })
       .then(bounties => {
-        console.log(bounties);
         this.setState({
           bounties: bounties
         });
