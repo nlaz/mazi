@@ -4,25 +4,27 @@ import contract from "truffle-contract";
 
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
-const INDEX = {
-  ISSUER: 0,
-  ARBITER: 1,
-  DEADLINE: 2,
-  FULFILLMENT_AMOUNT: 3,
-  TITLE: 4,
-  DESCRIPTION: 5
-};
+const convertBounty = bounty => ({
+  issuer: bounty[0],
+  arbiter: bounty[1],
+  deadline: bounty[2].toNumber(),
+  fulfillmentAmount: bounty[3].toNumber(),
+  title: bounty[4],
+  description: bounty[5]
+});
 
 export function RequestItem({ bounty }) {
   return (
     <div className="pure-u-1">
       <div className="left-div">
-        <h2>{bounty[INDEX.TITLE]}</h2>
-        <p>{bounty[INDEX.DESCRIPTION]}</p>
+        <h2>{bounty.title}</h2>
+        <p>{bounty.description}</p>
       </div>
       <div className="right-div">
-        <p>{bounty[INDEX.DEADLINE]}</p>
-        <b><p>{bounty[INDEX.FULFILLMENT_AMOUNT]}</p></b>
+        <p>{bounty.deadline}</p>
+        <b>
+          <p>{bounty.fulfillmentAmount}</p>
+        </b>
       </div>
     </div>
   );
@@ -77,12 +79,12 @@ export default class RequestPage extends React.Component {
         });
         return Promise.all(getBounties);
       })
-      .then(bounties => {
+      .then(results => {
+        const bounties = results.map(result => convertBounty(result));
         this.setState({
           bounties: bounties
         });
-      })
-      .catch(error => console.log(error));
+      });
   }
 
   render() {
@@ -91,10 +93,10 @@ export default class RequestPage extends React.Component {
       <div>
         <main className="container">
           <div class="banner">
-              <h1 class="banner-head">
-                  Simple Pricing.<br></br>
-                  Try before you buy.
-              </h1>
+            <h1 class="banner-head">
+              Simple Pricing.<br />
+              Try before you buy.
+            </h1>
           </div>
           <div className="pure-g">
             <div className="pure-u-1-2">

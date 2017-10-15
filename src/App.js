@@ -67,8 +67,10 @@ class App extends Component {
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <nav className="navbar pure-menu-heading pure-menu-horizontal navbar-cutsom">
-          <p // onClick={() => this.onNavClick(PAGE.HOME)}
-          className="pure-menu-heading"> //pure-menu-link"
+          <p
+            className="pure-menu-heading pure-menu-link"
+            onClick={() => this.onNavClick(PAGE.HOME)}
+          >
             Mazi
           </p>
           <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading pure-menu-link">
