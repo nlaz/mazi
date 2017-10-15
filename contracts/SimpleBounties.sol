@@ -22,19 +22,21 @@ contract SimpleBounties {
       bool paid;
       bool accepted;
       address fulfiller;
+      string data;
     }
 
     /* Events */
     event BountyIssued(uint bountyId);
     event BountyKilled(uint bountyId);
     event BountyFulfilled(uint bountyId, address fulfiller);
+    event FulfillmentAccepted(uint bountyId, address fulfiller);
 
     /* Storage */
     address public owner;
 
     SimpleBounty[] public bounties;
 
-    mapping(uint => Fulfillment[]) fulfillments;
+    mapping(uint => Fulfillment) fulfillments;
 
     /* Public functions */
     function SimpleBounties(address _owner) public {
@@ -70,14 +72,28 @@ contract SimpleBounties {
       );
     }
 
+    function getFulfillments(uint _bountyId) public constant returns (uint, address, string) {
+      return (
+        _bountyId,
+        fulfillments[_bountyId].fulfiller,
+        fulfillments[_bountyId].data
+      );
+    }
+
     function killBounty(uint _bountyId) public {
       bounties[_bountyId].bountyStage = BountyStages.Dead;
       BountyKilled(_bountyId);
     }
 
-    function fulfillBounty(uint _bountyId) public {
+    function fulfillBounty(uint _bountyId, string _data) public {
       bounties[_bountyId].bountyStage = BountyStages.Fulfilled;
-      fulfillments[_bountyId].push(Fulfillment(false, false, msg.sender));
+      fulfillments[_bountyId] = Fulfillment(false, false, msg.sender, _data);
       BountyFulfilled(_bountyId, msg.sender);
+    }
+
+    function acceptFulfillment(uint _bountyId) public {
+      fulfillments[_bountyId].accepted = true;
+      fulfillments[_bountyId].fulfiller.transfer(bounties[_bountyId].fulfillmentAmount);
+      FulfillmentAccepted(_bountyId, msg.sender);
     }
 }

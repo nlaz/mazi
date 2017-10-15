@@ -11,7 +11,8 @@ const STAGES = {
   FULFILLED: 2
 };
 
-export function RequestItem({ bounty, index, onFulFullItem, onCancelItem }) {
+export function RequestItem({ bounty, index, onFulFullItem }) {
+  let input;
   return (
     <div className="pure-u-1">
       <div className="left-div">
@@ -27,12 +28,28 @@ export function RequestItem({ bounty, index, onFulFullItem, onCancelItem }) {
         {bounty.bountyStage === STAGES.DEAD && <p>Cancelled</p>}
         {bounty.bountyStage === STAGES.FULFILLED && <p>Fulfilled</p>}
       </div>
-      <button onClick={() => onFulFullItem(index)} className="pure-button">
-        Fulfill Request
-      </button>
-      <button onClick={() => onCancelItem(index)} className="pure-button">
-        Cancel Request
-      </button>
+      {bounty.fulfillment ? (
+        <div style={{ background: "#ccc" }}>
+          <p>{bounty.fulfillment.link}</p>
+          <p>{bounty.fulfillment.fulfiller}</p>
+        </div>
+      ) : (
+        <div className="pure-form">
+          <div className="pure-group">
+            <label htmlFor="link">Research link</label>
+            <input
+              ref={el => (input = el)}
+              name="link"
+              type="text"
+              className="pure-input-1"
+              placeholder="Enter a link to your work"
+            />
+          </div>
+          <button onClick={() => onFulFullItem(index, input.value)} className="pure-button">
+            Submit
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -69,10 +86,12 @@ export default class RequestPage extends React.Component {
       });
   }
 
-  onFulFullItem(bountyId) {
+  onFulFullItem(bountyId, value) {
     const { web3, bountiesInstance } = this.state;
     if (web3 && bountiesInstance) {
-      bountiesInstance.fulfillBounty(bountyId).then(result => console.log("fulfillBounty", result));
+      bountiesInstance
+        .fulfillBounty(bountyId, value)
+        .then(result => console.log("fulfillBounty", result));
     }
   }
 
@@ -104,13 +123,33 @@ export default class RequestPage extends React.Component {
         return Promise.all(getBounties);
       })
       .then(results => {
-        console.log("bounties", results);
         const bounties = results.map(result => this.convertBounty(result));
         this.setState({
           bounties: bounties,
           bountiesInstance: bountiesInstance
         });
+        this.getFulfillments(results.web3);
       });
+  }
+
+  getFulfillments(web3) {
+    const { bounties, bountiesInstance } = this.state;
+    const arr = [...new Array(bounties.length)];
+
+    const getFulfillments = arr.map((_, key) => {
+      return bountiesInstance.getFulfillments.call(key);
+    });
+
+    Promise.all(getFulfillments).then(results => {
+      results.forEach((result, key) => {
+        const fulfillment = this.convertFulfillment(result);
+        this.setState(state => {
+          const { bounties } = state;
+          state.bounties[key].fulfillment = fulfillment;
+          return { bounties: bounties };
+        });
+      });
+    });
   }
 
   convertBounty(bounty) {
@@ -127,8 +166,17 @@ export default class RequestPage extends React.Component {
     };
   }
 
+  convertFulfillment(fulfillment) {
+    return {
+      bountyId: fulfillment[0].toNumber(),
+      fulfiller: fulfillment[1],
+      link: fulfillment[2]
+    };
+  }
+
   render() {
     const { bounties } = this.state;
+    console.log("bounties", bounties);
     return (
       <div>
         <main className="container container-style">
@@ -144,7 +192,6 @@ export default class RequestPage extends React.Component {
                   key={key}
                   index={key}
                   onFulFullItem={this.onFulFullItem}
-                  onCancelItem={this.onCancelItem}
                   bounty={bounty}
                 />
               ))}
