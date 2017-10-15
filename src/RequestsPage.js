@@ -15,7 +15,7 @@ const STAGES = {
 export function RequestItem({ bounty, index, onFulFullItem, onPayItem }) {
   let input;
   var t = new Date(bounty.deadline);
-  var formatted = moment(t).format("dddd, DD MMMM YYYY HH:mm:ss");
+  var formatted = moment(t).format("dddd, DD MMMM YYYY");
   return (
     <div className="pure-u-1 item-border">
       <div className="left-div">
@@ -35,7 +35,7 @@ export function RequestItem({ bounty, index, onFulFullItem, onPayItem }) {
         {bounty.bountyStage === STAGES.PAID && <p>Paid</p>}
       </div>
       {bounty.fulfillment && bounty.fulfillment.link.length > 0 ? (
-        <div style={{ background: "#ccc" }}>
+        <div>
           <p>{bounty.fulfillment.link}</p>
           <p>{bounty.fulfillment.fulfiller}</p>
           {bounty.bountyStage !== STAGES.PAID && (

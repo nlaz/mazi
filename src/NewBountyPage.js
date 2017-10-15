@@ -6,10 +6,10 @@ import contract from "truffle-contract";
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
 const deadlineOptions = [
-  { label: "One month", value: "oneMonth" },
-  { label: "Two months", value: "twoMonths" },
-  { label: "Three months", value: "threeMonths" },
-  { label: "Four months", value: "fourMonths" }
+  { label: "One month", value: 1 },
+  { label: "Two months", value: 2 },
+  { label: "Three months", value: 3 },
+  { label: "Four months", value: 4 }
 ];
 
 export default class NewBountyPage extends React.Component {
@@ -20,7 +20,7 @@ export default class NewBountyPage extends React.Component {
       contract_title: "",
       contract_description: "",
       contract_payout: 0,
-      contract_deadline: "oneMonth",
+      contract_deadline: 1,
       web3: undefined,
       accounts: []
     };
@@ -46,11 +46,17 @@ export default class NewBountyPage extends React.Component {
 
   onBountySubmit(e) {
     e.preventDefault();
-    const { contract_title, contract_description, contract_payout, accounts } = this.state;
+    const {
+      contract_title,
+      contract_description,
+      contract_payout,
+      contract_deadline,
+      accounts
+    } = this.state;
 
     const deadLineDate = moment()
-      .add(30, "days")
-      .unix()
+      .add(contract_deadline, "month")
+      .valueOf()
       .toString();
 
     const payoutStringAmount = this.state.web3.toWei(contract_payout, "ether");
