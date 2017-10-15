@@ -50,7 +50,8 @@ export default class NewBountyPage extends React.Component {
 
     const deadLineDate = moment()
       .add(30, "days")
-      .calendar();
+      .unix()
+      .toString();
 
     const payoutStringAmount = this.state.web3.toWei(contract_payout, "ether");
 

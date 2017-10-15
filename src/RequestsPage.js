@@ -32,7 +32,7 @@ export function RequestItem({ bounty, index, onFulFullItem }) {
         {bounty.bountyStage === STAGES.DEAD && <p>Cancelled</p>}
         {bounty.bountyStage === STAGES.FULFILLED && <p>Fulfilled</p>}
       </div>
-      {bounty.fulfillment ? (
+      {bounty.fulfillment && bounty.fulfillment.link.length > 0 ? (
         <div style={{ background: "#ccc" }}>
           <p>{bounty.fulfillment.link}</p>
           <p>{bounty.fulfillment.fulfiller}</p>
