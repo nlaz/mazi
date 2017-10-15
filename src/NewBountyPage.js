@@ -3,13 +3,7 @@ import moment from "moment";
 import getWeb3 from "./utils/getWeb3";
 import contract from "truffle-contract";
 
-// import Web3 from "web3";
-// const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
-// const json = require("../contracts.json");
-
-// const StandardBounties = web3.eth.contract(StandardBountiesContract.abi).at(testAddress);
 
 const deadlineOptions = [
   { label: "One month", value: "oneMonth" },
