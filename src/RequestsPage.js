@@ -8,10 +8,11 @@ const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json")
 const STAGES = {
   ACTIVE: 0,
   DEAD: 1,
-  FULFILLED: 2
+  FULFILLED: 2,
+  PAID: 3
 };
 
-export function RequestItem({ bounty, index, onFulFullItem }) {
+export function RequestItem({ bounty, index, onFulFullItem, onPayItem }) {
   let input;
   var t = new Date(bounty.deadline);
   var formatted = moment(t).format("dddd, DD MMMM YYYY HH:mm:ss");
@@ -31,11 +32,17 @@ export function RequestItem({ bounty, index, onFulFullItem }) {
         {bounty.bountyStage === STAGES.ACTIVE && <p>Active</p>}
         {bounty.bountyStage === STAGES.DEAD && <p>Cancelled</p>}
         {bounty.bountyStage === STAGES.FULFILLED && <p>Fulfilled</p>}
+        {bounty.bountyStage === STAGES.PAID && <p>Paid</p>}
       </div>
       {bounty.fulfillment && bounty.fulfillment.link.length > 0 ? (
         <div style={{ background: "#ccc" }}>
           <p>{bounty.fulfillment.link}</p>
           <p>{bounty.fulfillment.fulfiller}</p>
+          {bounty.bountyStage !== STAGES.PAID && (
+            <button onClick={() => onPayItem(index)} className="pure-button">
+              Pay
+            </button>
+          )}
         </div>
       ) : (
         <div className="pure-form">
@@ -72,6 +79,7 @@ export default class RequestPage extends React.Component {
     this.convertBounty = this.convertBounty.bind(this);
     this.onFulFullItem = this.onFulFullItem.bind(this);
     this.onCancelItem = this.onCancelItem.bind(this);
+    this.onPayItem = this.onPayItem.bind(this);
   }
 
   componentWillMount() {
@@ -95,6 +103,15 @@ export default class RequestPage extends React.Component {
     if (web3 && bountiesInstance) {
       bountiesInstance
         .fulfillBounty(bountyId, value)
+        .then(result => console.log("fulfillBounty", result));
+    }
+  }
+
+  onPayItem(bountyId) {
+    const { web3, bountiesInstance } = this.state;
+    if (web3 && bountiesInstance) {
+      bountiesInstance
+        .acceptFulfillment(bountyId)
         .then(result => console.log("fulfillBounty", result));
     }
   }
@@ -197,6 +214,7 @@ export default class RequestPage extends React.Component {
                     key={key}
                     index={key}
                     onFulFullItem={this.onFulFullItem}
+                    onPayItem={this.onPayItem}
                     bounty={bounty}
                   />
                 ))}

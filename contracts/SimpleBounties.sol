@@ -5,7 +5,8 @@ contract SimpleBounties {
     enum BountyStages {
       Active,
       Dead,
-      Fulfilled
+      Fulfilled,
+      Paid
     }
 
     struct SimpleBounty {
@@ -94,6 +95,7 @@ contract SimpleBounties {
     function acceptFulfillment(uint _bountyId) public {
       fulfillments[_bountyId].accepted = true;
       fulfillments[_bountyId].fulfiller.transfer(bounties[_bountyId].fulfillmentAmount);
+      bounties[_bountyId].bountyStage = BountyStages.Paid;
       FulfillmentAccepted(_bountyId, msg.sender);
     }
 }
