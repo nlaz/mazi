@@ -49,15 +49,14 @@ export default class NewBountyPage extends React.Component {
     const { contract_title, contract_description, contract_payout, accounts } = this.state;
 
     const deadLineDate = moment()
-      .add(1, "months")
-      .unix()
-      .toString();
+      .add(30, "days")
+      .calendar();
 
     const payoutStringAmount = this.state.web3.toWei(contract_payout, "ether");
 
     const simpleBounties = contract(SimpleBountiesContract);
     simpleBounties.setProvider(this.state.web3.currentProvider);
-    const account = accounts[0] || '0x0';
+    const account = accounts[0] || "0x0";
 
     var bountiesInstance;
 
@@ -93,10 +92,12 @@ export default class NewBountyPage extends React.Component {
           <div className="pure-g">
             <div className="pure-u-1-2">
               <div className="left-sidebar">
-                <h1>Research, Distributed.</h1><br></br>
+                <h1>Research, Distributed.</h1>
+                <br />
                 <p>
-                  <h3 style={{display:"inline"}}>Mazi</h3> is a decentralized knowledge marketplace. Ask for research to be done, and
-                  a team of individuals will work to provide you quality answers at competitive prices.
+                  <h3 style={{ display: "inline" }}>Mazi</h3> is a decentralized knowledge
+                  marketplace. Ask for research to be done, and a team of individuals will work to
+                  provide you quality answers at competitive prices.
                 </p>
               </div>
             </div>

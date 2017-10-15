@@ -69,9 +69,8 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 	text-align: center;
 	vertical-align: center;
 	width:60%;
-	h1 {
-		height:120px;
-	}
+	height:120px;
+	top:50px;
 }
 .myForm {
 	margin:auto;
