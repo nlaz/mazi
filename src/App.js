@@ -60,14 +60,17 @@ class App extends Component {
     const { page } = this.state;
 
     return (
-      <div className="App">
-        <nav className="navbar pure-menu-heading pure-menu-horizontal">
-          <a
-            className="pure-menu-heading pure-menu-link"
-            onClick={() => this.onNavClick(PAGE.HOME)}
-          >
-            Mazi Home
-          </a>
+      <div className="app-style App">
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <nav className="navbar pure-menu-heading pure-menu-horizontal navbar-cutsom">
+          <p // onClick={() => this.onNavClick(PAGE.HOME)}
+          className="pure-menu-heading"> //pure-menu-link"
+            Mazi
+          </p>
           <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading pure-menu-link">
             New
           </a>
@@ -81,6 +84,11 @@ class App extends Component {
         </nav>
 
         <Pages page={page} state={this.state} />
+        <footer className="footer">
+          <p>
+            Made with <i className="fa fa-coffee" aria-hidden="true" /> at ETHWaterloo.
+          </p>
+        </footer>
       </div>
     );
   }

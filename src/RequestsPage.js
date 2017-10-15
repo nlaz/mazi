@@ -16,8 +16,14 @@ const INDEX = {
 export function RequestItem({ bounty }) {
   return (
     <div className="pure-u-1">
-      <h2>{bounty[INDEX.TITLE]}</h2>
-      <p>{bounty[INDEX.DESCRIPTION]}</p>
+      <div className="left-div">
+        <h2>{bounty[INDEX.TITLE]}</h2>
+        <p>{bounty[INDEX.DESCRIPTION]}</p>
+      </div>
+      <div className="right-div">
+        <p>{bounty[INDEX.DEADLINE]}</p>
+        <b><p>{bounty[INDEX.FULFILLMENT_AMOUNT]}</p></b>
+      </div>
     </div>
   );
 }
@@ -82,13 +88,21 @@ export default class RequestPage extends React.Component {
   render() {
     const { bounties } = this.state;
     return (
-      <main className="container">
-        <div className="pure-g">
-          <div className="pure-u-1-2">
-            {bounties.map((bounty, key) => <RequestItem key={key} bounty={bounty} />)}
+      <div>
+        <main className="container">
+          <div class="banner">
+              <h1 class="banner-head">
+                  Simple Pricing.<br></br>
+                  Try before you buy.
+              </h1>
           </div>
-        </div>
-      </main>
+          <div className="pure-g">
+            <div className="pure-u-1-2">
+              {bounties.map((bounty, key) => <RequestItem key={key} bounty={bounty} />)}
+            </div>
+          </div>
+        </main>
+      </div>
     );
   }
 }
