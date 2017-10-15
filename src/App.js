@@ -5,27 +5,22 @@ import "./css/oswald.css";
 import "./css/open-sans.css";
 import "./css/pure-min.css";
 import "./App.css";
-// import DashboardPage from "./DashboardPage";
 import NewBountyPage from "./NewBountyPage";
 import RequestsPage from "./RequestsPage";
 
 const PAGE = {
-  // HOME: "home",
   NEW: "new",
   REQUESTS: "requests"
 };
 
 export function Pages({ page, state }) {
   switch (page) {
-    // case PAGE.HOME:
-    //   return <DashboardPage storageValue={state.storageValue} />;
     case PAGE.NEW:
       return <NewBountyPage />;
     case PAGE.REQUESTS:
       return <RequestsPage />;
     default:
-      return <NewBountyPage />;
-      // return <DashboardPage storageValue={state.storageValue} />;
+      return <RequestsPage />;
   }
 }
 
@@ -36,7 +31,7 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.NEW
+      page: PAGE.REQUESTS
     };
 
     this.onNavClick = this.onNavClick.bind(this);
@@ -68,8 +63,8 @@ class App extends Component {
       <div className="App">
         <nav className="navbar pure-menu-heading pure-menu-horizontal">
           <a
-            // onClick={() => this.onNavClick(PAGE.HOME)}
-            className="pure-menu-heading" //pure-menu-link"
+            className="pure-menu-heading pure-menu-link"
+            onClick={() => this.onNavClick(PAGE.HOME)}
           >
             Mazi Home
           </a>

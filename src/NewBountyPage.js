@@ -66,7 +66,7 @@ export default class NewBountyPage extends React.Component {
         bountiesInstance = instance;
         return bountiesInstance.issueBounty(
           accounts[0],
-          accounts[1],
+          accounts[0],
           deadLineDate,
           payoutStringAmount,
           contract_title,
@@ -76,11 +76,7 @@ export default class NewBountyPage extends React.Component {
       })
       .then(result => {
         return bountiesInstance.getNumBounties.call();
-      })
-      .then(result => {
-        console.log("getNumBounties", result.toString());
-      })
-      .catch(error => console.log(error));
+      });
   }
 
   onInputChange(event) {
@@ -92,7 +88,7 @@ export default class NewBountyPage extends React.Component {
   render() {
     return (
       <main className="container container-style">
-         <div className="pure-g">
+        <div className="pure-g">
           <div className="myForm pure-u-1-3">
             <form
               onSubmit={this.onBountySubmit}
@@ -108,7 +104,8 @@ export default class NewBountyPage extends React.Component {
                   className="pure-input-1"
                   value={this.state.title}
                   placeholder="Enter a bounty title"
-                /><br></br>
+                />
+                <br />
                 <label htmlFor="description">Description</label>
                 <textarea
                   name="contract_description"
@@ -116,7 +113,8 @@ export default class NewBountyPage extends React.Component {
                   className="pure-input-1"
                   value={this.state.description}
                   placeholder="Enter a description of your bounty"
-                /><br></br>
+                />
+                <br />
                 <label htmlFor="payout_amount">Payout Amount</label>
                 <input
                   name="contract_payout"
@@ -125,7 +123,8 @@ export default class NewBountyPage extends React.Component {
                   className="pure-input-1"
                   value={this.state.payout_amount}
                   placeholder="0 ETH"
-                /><br></br>
+                />
+                <br />
                 <label htmlFor="deadline">Deadline</label>
                 <br />
                 <select
@@ -149,12 +148,12 @@ export default class NewBountyPage extends React.Component {
           </div>
         </div>
         <div className="footer l-box">
-            <p>
-                <a href="#">Try now</a> for 14 days. No credit card required. Header image courtesy of <a href="http://unsplash.com/">Unsplash</a>.
-            </p>
+          <p>
+            <a href="#">Try now</a> for 14 days. No credit card required. Header image courtesy of{" "}
+            <a href="http://unsplash.com/">Unsplash</a>.
+          </p>
         </div>
       </main>
-
     );
   }
 }
