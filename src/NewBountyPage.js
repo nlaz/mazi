@@ -91,12 +91,14 @@ export default class NewBountyPage extends React.Component {
       <div>
         <main className="container container-style">
           <div className="pure-g">
-            <div className="left-sidebar pure-u-1-2">
-              <p>
-                Mazi is a decentralized knowledge marketplace. Ask for research to be done, and
-                smart contracts will incentivize individuals, teams, and computers to get you good
-                answers at competitive prices.
-              </p>
+            <div className="pure-u-1-2">
+              <div className="left-sidebar">
+                <h1>Research, Distributed.</h1><br></br>
+                <p>
+                  <h3 style={{display:"inline"}}>Mazi</h3> is a decentralized knowledge marketplace. Ask for research to be done, and
+                  a team of individuals will work to provide you quality answers at competitive prices.
+                </p>
+              </div>
             </div>
             <div className="myForm pure-u-1-2">
               <form

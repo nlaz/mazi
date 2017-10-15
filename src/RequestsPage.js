@@ -92,12 +92,11 @@ export default class RequestPage extends React.Component {
     console.log(bounties);
     return (
       <div>
-        <main className="container">
-          <div class="banner">
-            <h1 class="banner-head">
-              Simple Pricing.<br />
-              Try before you buy.
-            </h1>
+        <main className="container container-style">
+          <div className="banner">
+              <h1 className="banner-head">
+                  Find Tasks<br></br>
+              </h1>
           </div>
           <p>text</p>
           <div className="pure-g">
