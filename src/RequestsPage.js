@@ -17,7 +17,7 @@ export function RequestItem({ bounty, index, onFulFullItem, onPayItem }) {
   var t = new Date(bounty.deadline);
   var formatted = moment(t).format("dddd, DD MMMM YYYY HH:mm:ss");
   return (
-    <div className="pure-u-1">
+    <div className="pure-u-1 item-border">
       <div className="left-div">
         <h2>{bounty.title}</h2>
         <p>{bounty.description}</p>
@@ -157,11 +157,11 @@ export default class RequestPage extends React.Component {
     const { bounties, bountiesInstance } = this.state;
     const arr = [...new Array(bounties.length)];
 
-    const getFulfillments = arr.map((_, key) => {
+    const getFulfillmentss = arr.map((_, key) => {
       return bountiesInstance.getFulfillments.call(key);
     });
 
-    Promise.all(getFulfillments).then(results => {
+    Promise.all(getFulfillmentss).then(results => {
       results.forEach((result, key) => {
         const fulfillment = this.convertFulfillment(result);
         this.setState(state => {

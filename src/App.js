@@ -20,7 +20,7 @@ export function Pages({ page, state }) {
     case PAGE.REQUESTS:
       return <RequestsPage />;
     default:
-      return <RequestsPage />;
+      return <NewBountyPage />;
   }
 }
 
@@ -31,7 +31,7 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.REQUESTS
+      page: PAGE.NEW
     };
 
     this.onNavClick = this.onNavClick.bind(this);
@@ -67,12 +67,11 @@ class App extends Component {
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <nav className="navbar pure-menu-heading pure-menu-horizontal navbar-cutsom">
-          <p
-            className="pure-menu-heading pure-menu-link"
-            onClick={() => this.onNavClick(PAGE.HOME)}
-          >
+          <p className="pure-menu-heading pure-menu-link">
             Mazi
+            //<img src="../logo.png"/>
           </p>
+
           <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading">
             New
           </a>
