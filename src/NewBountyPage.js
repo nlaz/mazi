@@ -91,70 +91,69 @@ export default class NewBountyPage extends React.Component {
 
   render() {
     return (
-      <main className="container container-style">
-         <div className="pure-g">
-          <div className="myForm pure-u-1-3">
-            <form
-              onSubmit={this.onBountySubmit}
-              className="pure-form"
-              style={{ marginTop: "30px" }}
-            >
-              <fieldset className="myForm pure-group">
-                <label htmlFor="title">Title</label>
-                <input
-                  name="contract_title"
-                  type="text"
-                  onChange={this.onInputChange}
-                  className="pure-input-1"
-                  value={this.state.title}
-                  placeholder="Enter a bounty title"
-                /><br></br>
-                <label htmlFor="description">Description</label>
-                <textarea
-                  name="contract_description"
-                  onChange={this.onInputChange}
-                  className="pure-input-1"
-                  value={this.state.description}
-                  placeholder="Enter a description of your bounty"
-                /><br></br>
-                <label htmlFor="payout_amount">Payout Amount</label>
-                <input
-                  name="contract_payout"
-                  type="number"
-                  onChange={this.onInputChange}
-                  className="pure-input-1"
-                  value={this.state.payout_amount}
-                  placeholder="0 ETH"
-                /><br></br>
-                <label htmlFor="deadline">Deadline</label>
-                <br />
-                <select
-                  name="contract_deadline"
-                  onChange={this.onInputChange}
-                  className="pure-input-1"
-                  value={this.state.deadline}
-                >
-                  {deadlineOptions.map((option, key) => (
-                    <option key={key} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </fieldset>
+      <div>
+        <main className="container container-style">
+           <div className="pure-g">
+            <div className="left-sidebar pure-u-1-2">
+              <p>Mazi is a decentralized knowledge marketplace. Ask for research to be done, and smart contracts will incentivize individuals, teams, and computers to get you good answers at competitive prices.</p>
+            </div>
+            <div className="myForm pure-u-1-2">
+              <form
+                onSubmit={this.onBountySubmit}
+                className="pure-form"
+                style={{ marginTop: "30px" }}
+              >
+                <fieldset className="myForm pure-group">
+                  <label htmlFor="title">Title</label>
+                  <input
+                    name="contract_title"
+                    type="text"
+                    onChange={this.onInputChange}
+                    className="pure-input-1"
+                    value={this.state.title}
+                    placeholder="Enter a bounty title"
+                  /><br></br>
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    name="contract_description"
+                    onChange={this.onInputChange}
+                    className="pure-input-1"
+                    value={this.state.description}
+                    placeholder="Enter a description of your bounty"
+                  /><br></br>
+                  <label htmlFor="payout_amount">Payout Amount</label>
+                  <input
+                    name="contract_payout"
+                    type="number"
+                    onChange={this.onInputChange}
+                    className="pure-input-1"
+                    value={this.state.payout_amount}
+                    placeholder="0 ETH"
+                  /><br></br>
+                  <label htmlFor="deadline">Deadline</label>
+                  <br />
+                  <select
+                    name="contract_deadline"
+                    onChange={this.onInputChange}
+                    className="pure-input-1"
+                    value={this.state.deadline}
+                  >
+                    {deadlineOptions.map((option, key) => (
+                      <option key={key} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </fieldset>
 
-              <button type="submit" className="pure-button pure-input-1-1 pure-button-primary">
-                Submit Request
-              </button>
-            </form>
+                <button type="submit" className="pure-button pure-input-1-1 pure-button-primary">
+                  Submit Request
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="footer l-box">
-            <p>
-                <a href="#">Try now</a> for 14 days. No credit card required. Header image courtesy of <a href="http://unsplash.com/">Unsplash</a>.
-            </p>
-        </div>
-      </main>
-
+        </main>
+      </div>
     );
   }
 }
