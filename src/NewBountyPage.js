@@ -49,7 +49,7 @@ export default class NewBountyPage extends React.Component {
     const { contract_title, contract_description, contract_payout, accounts } = this.state;
 
     const deadLineDate = moment()
-      .add(1, "months")
+      // .add(1, "months")
       .unix()
       .toString();
 

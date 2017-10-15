@@ -12,6 +12,8 @@ const STAGES = {
 };
 
 export function RequestItem({ bounty, index, onFulFullItem, onCancelItem }) {
+  var t = new Date( bounty.deadline );
+  var formatted = moment(t).format("dddd, DD MMMM YYYY HH:mm:ss");
   return (
     <div className="pure-u-1">
       <div className="left-div">
@@ -19,9 +21,9 @@ export function RequestItem({ bounty, index, onFulFullItem, onCancelItem }) {
         <p>{bounty.description}</p>
       </div>
       <div className="right-div">
-        <p>{bounty.deadline}</p>
+        <p>{formatted}</p>
         <p>
-          <strong>{bounty.fulfillmentAmount} ETH</strong>
+          <strong><p>{bounty.fulfillmentAmount} ETH</p></strong>
         </p>
         {bounty.bountyStage === STAGES.ACTIVE && <p>Active</p>}
         {bounty.bountyStage === STAGES.DEAD && <p>Cancelled</p>}
@@ -138,6 +140,7 @@ export default class RequestPage extends React.Component {
             </h1>
           </div>
           <div className="pure-g">
+          <center>
             <div className="pure-u-1-2">
               {bounties.map((bounty, key) => (
                 <RequestItem
@@ -149,6 +152,7 @@ export default class RequestPage extends React.Component {
                 />
               ))}
             </div>
+          </center>
           </div>
         </main>
       </div>
