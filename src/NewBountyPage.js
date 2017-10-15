@@ -48,7 +48,7 @@ export default class NewBountyPage extends React.Component {
     e.preventDefault();
     const { contract_title, contract_description, contract_payout, accounts } = this.state;
 
-    const deadLineDate = moment()
+    const deadLineDate = moment().add(30, 'days').calendar();
       // .add(1, "months")
       .unix()
       .toString();
