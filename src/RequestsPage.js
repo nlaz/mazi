@@ -22,7 +22,7 @@ export function RequestItem({ bounty }) {
       </div>
       <div className="right-div">
         <p>{bounty[INDEX.DEADLINE]}</p>
-        <b><p>{bounty[INDEX.FULFILLMENT_AMOUNT]}</p></b>
+        <strong><p>{bounty[INDEX.FULFILLMENT_AMOUNT]}</p></strong>
       </div>
     </div>
   );
@@ -87,15 +87,16 @@ export default class RequestPage extends React.Component {
 
   render() {
     const { bounties } = this.state;
+    console.log(bounties);
     return (
       <div>
-        <main className="container">
-          <div class="banner">
-              <h1 class="banner-head">
-                  Simple Pricing.<br></br>
-                  Try before you buy.
+        <main className="container container-style">
+          <div className="banner">
+              <h1 className="banner-head">
+                  Research, Distributed.<br></br>
               </h1>
           </div>
+          <p>text</p>
           <div className="pure-g">
             <div className="pure-u-1-2">
               {bounties.map((bounty, key) => <RequestItem key={key} bounty={bounty} />)}

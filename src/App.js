@@ -61,23 +61,21 @@ class App extends Component {
 
     return (
       <div className="app-style App">
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <nav className="navbar pure-menu-heading pure-menu-horizontal navbar-cutsom">
-          <p // onClick={() => this.onNavClick(PAGE.HOME)}
-          className="pure-menu-heading"> //pure-menu-link"
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+        <nav className="navbar pure-menu-heading pure-menu-horizontal navbar-custom">
+          <p
+            // onClick={() => this.onNavClick(PAGE.HOME)}
+            className="pure-menu-heading" //pure-menu-link"
+          >
             Mazi
           </p>
-          <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading pure-menu-link">
+          <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading">
             New
           </a>
 
           <a
             onClick={() => this.onNavClick(PAGE.REQUESTS)}
-            className="pure-menu-heading pure-menu-link"
+            className="pure-menu-heading"
           >
             Requests
           </a>
