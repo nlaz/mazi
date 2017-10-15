@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 
 import "./css/oswald.css";
@@ -7,8 +6,17 @@ import "./css/open-sans.css";
 import "./css/pure-min.css";
 import "./App.css";
 import DashboardPage from "./DashboardPage";
-import NewPage from "./NewPage";
+import NewBountyPage from "./NewBountyPage";
 import RequestsPage from "./RequestsPage";
+
+import Web3 from "web3";
+const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io"));
+
+const json = require("../contracts.json");
+
+const StandardBounties = web3.eth
+  .contract(json.interfaces.StandardBounties)
+  .at(json.standardBountiesAddress);
 
 const PAGE = {
   HOME: "home",
@@ -21,7 +29,7 @@ export function Pages({ page, state }) {
     case PAGE.HOME:
       return <DashboardPage storageValue={state.storageValue} />;
     case PAGE.NEW:
-      return <NewPage />;
+      return <NewBountyPage />;
     case PAGE.REQUESTS:
       return <RequestsPage />;
     default:
@@ -36,64 +44,40 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.HOME
+      page: PAGE.NEW
     };
 
     this.onNavClick = this.onNavClick.bind(this);
   }
 
   componentWillMount() {
-    // Get network provider and web3 instance.
-    // See utils/getWeb3 for more info.
-
     getWeb3
       .then(results => {
-        this.setState({
-          web3: results.web3
+        results.web3.eth.getAccounts((err, accs) => {
+          this.setState(
+            () => ({
+              web3: results.web3,
+              accounts: accs
+            }),
+            this.getBounties()
+          );
         });
 
-        // Instantiate contract once web3 provided.
-        this.instantiateContract();
+        this.getBounties();
       })
       .catch(() => {
         console.log("Error finding web3.");
       });
   }
 
-  instantiateContract() {
-    /*
-     * SMART CONTRACT EXAMPLE
-     *
-     * Normally these functions would be called in the context of a
-     * state management library, but for convenience I've placed them here.
-     */
-
-    const contract = require("truffle-contract");
-    const simpleStorage = contract(SimpleStorageContract);
-    simpleStorage.setProvider(this.state.web3.currentProvider);
-
-    // Declaring this for later so we can chain functions on SimpleStorage.
-    var simpleStorageInstance;
-
-    // Get accounts.
-    this.state.web3.eth.getAccounts((error, accounts) => {
-      simpleStorage
-        .deployed()
-        .then(instance => {
-          simpleStorageInstance = instance;
-
-          // Stores a given value, 5 by default.
-          return simpleStorageInstance.set(5, { from: accounts[0] });
-        })
-        .then(result => {
-          // Get the value from the contract to prove it worked.
-          return simpleStorageInstance.get.call(accounts[0]);
-        })
-        .then(result => {
-          // Update state with the result.
-          return this.setState({ storageValue: result.c[0] });
-        });
+  getBounties() {
+    StandardBounties.getNumBounties((err, num) => {
+      console.log(err, num.toString());
     });
+  }
+
+  componentWillUpdate() {
+    this.getBounties();
   }
 
   onNavClick(value) {
@@ -110,7 +94,7 @@ class App extends Component {
             onClick={() => this.onNavClick(PAGE.HOME)}
             className="pure-menu-heading pure-menu-link"
           >
-            Truffle Box
+            Mazi Home
           </a>
           <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading pure-menu-link">
             New

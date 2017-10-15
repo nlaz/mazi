@@ -1,4 +1,5 @@
-var StandardBounties = artifacts.require("../contacts/StandardBounties.sol");
+/* global artifacts */
+var StandardBounties = artifacts.require("../contracts/StandardBounties.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(StandardBounties);
