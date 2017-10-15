@@ -46,15 +46,14 @@ export default class NewBountyPage extends React.Component {
 
   onBountySubmit(e) {
     e.preventDefault();
-    const contractInfo = this.state;
-    const { accounts } = this.state;
+    const { contract_title, contract_description, contract_payout, accounts } = this.state;
 
     const deadLineDate = moment()
       .add(1, "months")
       .unix()
       .toString();
 
-    const payoutStringAmount = this.state.web3.toWei(contractInfo.contract_payout, "ether");
+    const payoutStringAmount = this.state.web3.toWei(contract_payout, "ether");
 
     const simpleBounties = contract(SimpleBountiesContract);
     simpleBounties.setProvider(this.state.web3.currentProvider);
@@ -70,11 +69,9 @@ export default class NewBountyPage extends React.Component {
           accounts[0],
           deadLineDate,
           payoutStringAmount,
-          contractInfo,
-          { from: accounts[0], value: payoutStringAmount },
-          (cerr, succ) => {
-            instance.getNumBounties((err, num) => {});
-          }
+          contract_title,
+          contract_description,
+          { from: accounts[0], value: payoutStringAmount }
         );
       })
       .then(result => {
