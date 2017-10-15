@@ -15,6 +15,10 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 	background-color: rgba(141, 132, 229);
 }*/
 
+.navbar-custom{
+	height:75px;
+}
+
 .header,
 .footer {
   background: $red;
@@ -26,7 +30,7 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 }
 
 .footer {
-	background-color: black;
+	background-color: RGB(15,26,42);
   min-height: $footer-height;
   p {
     font-size: .8em;
@@ -38,12 +42,13 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
   }
 }
 .banner {
-    background: transparent url('https://images.unsplash.com/photo-1503647098920-d5a4604f42c3?dpr=1&auto=compress,format&fit=crop&w=1048&h=&q=80&cs=tinysrgb&crop=') 0 0 no-repeat fixed;
+    background: transparent url('https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?dpr=1&auto=compress,format&fit=crop&w=1050&h=&q=80&cs=tinysrgb&crop=') 0 0 no-repeat;
     text-align: center;
     background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://images.unsplash.com/photo-1503647098920-d5a4604f42c3?dpr=1&auto=compress,format&fit=crop&w=1048&h=&q=80&cs=tinysrgb&crop=', sizingMethod='scale');
+		/*https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?dpr=1&auto=compress,format&fit=crop&w=1050&h=&q=80&cs=tinysrgb&crop=*/
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?dpr=1&auto=compress,format&fit=crop&w=1050&h=&q=80&cs=tinysrgb&crop=', sizingMethod='scale');
 
-    height: 200px;
+    height: 350px;
     width: 100%;
     margin-bottom: 3em;
     display: table;
@@ -67,10 +72,10 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 	width:80%
 }
 .container-style{
-	background-color: RGB(141, 132, 229);
+	background-color: rgb(232, 232, 232);
 }
 .footer-style{
-	background-color: black;
+	background-color: RGB(15,26,42);
 	/*text-align: center;*/
 	/*height:auto;*/
 	margin:auto;

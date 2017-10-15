@@ -57,6 +57,7 @@ export default class NewBountyPage extends React.Component {
 
     const simpleBounties = contract(SimpleBountiesContract);
     simpleBounties.setProvider(this.state.web3.currentProvider);
+    const account = accounts[0] || '0x0';
 
     var bountiesInstance;
 
@@ -65,8 +66,8 @@ export default class NewBountyPage extends React.Component {
       .then(instance => {
         bountiesInstance = instance;
         return bountiesInstance.issueBounty(
-          accounts[0],
-          accounts[0],
+          account,
+          account,
           deadLineDate,
           payoutStringAmount,
           contract_title,

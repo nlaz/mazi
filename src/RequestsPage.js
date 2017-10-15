@@ -22,9 +22,9 @@ export function RequestItem({ bounty }) {
       </div>
       <div className="right-div">
         <p>{bounty.deadline}</p>
-        <b>
+        <strong>
           <p>{bounty.fulfillmentAmount}</p>
-        </b>
+        </strong>
       </div>
     </div>
   );
@@ -89,6 +89,7 @@ export default class RequestPage extends React.Component {
 
   render() {
     const { bounties } = this.state;
+    console.log(bounties);
     return (
       <div>
         <main className="container">
@@ -98,6 +99,7 @@ export default class RequestPage extends React.Component {
               Try before you buy.
             </h1>
           </div>
+          <p>text</p>
           <div className="pure-g">
             <div className="pure-u-1-2">
               {bounties.map((bounty, key) => <RequestItem key={key} bounty={bounty} />)}

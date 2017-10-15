@@ -73,14 +73,11 @@ class App extends Component {
           >
             Mazi
           </p>
-          <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading pure-menu-link">
+          <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading">
             New
           </a>
 
-          <a
-            onClick={() => this.onNavClick(PAGE.REQUESTS)}
-            className="pure-menu-heading pure-menu-link"
-          >
+          <a onClick={() => this.onNavClick(PAGE.REQUESTS)} className="pure-menu-heading">
             Requests
           </a>
         </nav>
