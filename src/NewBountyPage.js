@@ -9,7 +9,6 @@ const deadlineOptions = [
   { label: "One month", value: 1 },
   { label: "Two months", value: 2 },
   { label: "Three months", value: 3 },
-  { label: "Four months", value: 4 }
 ];
 
 export default class NewBountyPage extends React.Component {
@@ -131,7 +130,7 @@ export default class NewBountyPage extends React.Component {
                     onChange={this.onInputChange}
                     className="pure-input-1"
                     value={this.state.description}
-                    placeholder="Enter a description of your bounty"
+                    placeholder="How can Mazi help you?"
                   />
                   <br />
                   <label htmlFor="payout_amount">Payout Amount</label>
