@@ -2,7 +2,7 @@
  * RequestsPage stylesheet
  */
 
-.RequestsPage.container--narrow {
+.RequestsPage .container--narrow {
   max-width: 780px;
   margin: 80px auto;
 }

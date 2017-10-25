@@ -11,3 +11,13 @@ body {
   background: #f8faff;
   min-height: 100vh;
 }
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App main {
+  flex-grow: 1;
+}

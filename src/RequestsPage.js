@@ -162,25 +162,27 @@ export default class RequestPage extends React.Component {
     // const { bounties } = this.state;
     const bounties = EXAMPLE_BOUNTIES;
     return (
-      <main className="RequestsPage container--narrow">
-        {bounties.length > 0 ? (
-          <div className="bountiesList">
-            {bounties.map((bounty, key) => (
-              <RequestItem
-                key={key}
-                index={key}
-                onFulFullItem={this.onFulFullItem}
-                onPayItem={this.onPayItem}
-                bounty={bounty}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="bountiesList--empty">
-            <div className="emoji">👋</div>
-            <p>No bounties available. Be the first to create one</p>
-          </div>
-        )}
+      <main className="RequestsPage">
+        <div className="container--narrow">
+          {bounties.length > 0 ? (
+            <div className="bountiesList">
+              {bounties.map((bounty, key) => (
+                <RequestItem
+                  key={key}
+                  index={key}
+                  onFulFullItem={this.onFulFullItem}
+                  onPayItem={this.onPayItem}
+                  bounty={bounty}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="bountiesList--empty">
+              <div className="emoji">👋</div>
+              <p>No bounties available. Be the first to create one</p>
+            </div>
+          )}
+        </div>
       </main>
     );
   }

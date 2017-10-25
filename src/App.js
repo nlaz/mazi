@@ -5,6 +5,7 @@ import "./App.css";
 import NewBountyPage from "./NewBountyPage";
 import RequestsPage from "./RequestsPage";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 const PAGE = {
   NEW: "new",
@@ -50,6 +51,7 @@ class App extends Component {
       <div className="App">
         <NavBar onNavClick={this.onNavClick} />
         {page === PAGE.NEW ? <NewBountyPage /> : <RequestsPage />}
+        <Footer />
       </div>
     );
   }
