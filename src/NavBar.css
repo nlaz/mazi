@@ -22,14 +22,19 @@
   align-items: center;
 }
 
+.navbar a {
+  cursor: pointer;
+}
 .navbar-logo {
   font-weight: bold;
   font-size: 26px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.26);
 }
 .navbar-link {
   font-weight: normal;
   font-size: 14px;
   text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.26);
 }
 .navbar-button {
   border: 1px solid #ffffff;

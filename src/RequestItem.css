@@ -1,0 +1,76 @@
+/**
+ * RequestItem stylesheet
+ */
+
+.RequestItem {
+  background: #ffffff;
+  border: 1px solid #e6e8ec;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(84, 85, 87, 0.04);
+  height: 120px;
+  padding: 24px 12px;
+  position: relative;
+}
+
+.RequestItem.display-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.paymentInfo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 115px;
+  border-right: 1px solid #e6e8ec;
+}
+
+.paymentInfo-amount {
+  font-size: 36px;
+  font-weight: bold;
+  color: #1b76dd;
+}
+
+.paymentInfo-type {
+  font-weight: bold;
+  color: #313233;
+}
+
+.bountyInfo {
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bountyInfo-title {
+  color: #313233;
+  font-size: 24px;
+  letter-spacing: -.3px;
+  margin: 0;
+}
+
+.bountyInfo-details {
+  color: #777a82;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+}
+
+.bountyInfo-details .issuer {
+  color: #2479da;
+  text-decoration: underline;
+}
+
+.bountyInfo-details .status,
+.bountyInfo-details .deadline {
+  color: #313233;
+}
+.bountyInfo-arrowIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 24px;
+  margin: auto;
+}

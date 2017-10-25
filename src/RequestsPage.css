@@ -1,0 +1,29 @@
+/**
+ * RequestsPage stylesheet
+ */
+
+.RequestsPage.container--narrow {
+  max-width: 780px;
+  margin: 80px auto;
+}
+
+.bountiesList--empty {
+  text-align: center;
+  font-size: 18px;
+  padding: 24px 12px;
+  background: #e9ecf2;
+  border-radius: 3px;
+  border: 1px solid #cfd2dc;
+  color: #777a82;
+}
+
+.bountiesList--empty .emoji {
+  font-size: 60px;
+}
+
+.bountiesList .RequestItem {
+  margin-top: 24px;
+}
+.bountiesList .RequestItem:first-child {
+  margin-top: 0;
+}

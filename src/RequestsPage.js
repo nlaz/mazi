@@ -3,67 +3,30 @@ import moment from "moment";
 import getWeb3 from "./utils/getWeb3";
 import contract from "truffle-contract";
 
+import RequestItem from "./RequestItem";
+import "./RequestsPage.css";
+
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
-const STAGES = {
-  ACTIVE: 0,
-  DEAD: 1,
-  FULFILLED: 2,
-  PAID: 3
-};
-
-export function RequestItem({ bounty, index, onFulFullItem, onPayItem }) {
-  let input;
-  var t = new Date(bounty.deadline);
-  var formatted = moment(t).format("dddd, DD MMMM YYYY");
-  return (
-    <div className="pure-u-1 item-border">
-      <div className="left-div">
-        <h2>{bounty.title}</h2>
-        <p>{bounty.description}</p>
-      </div>
-      <div className="right-div">
-        <p>{formatted}</p>
-        <p>
-          <strong>
-            <p>{bounty.fulfillmentAmount} ETH</p>
-          </strong>
-        </p>
-        {bounty.bountyStage === STAGES.ACTIVE && <p>Active</p>}
-        {bounty.bountyStage === STAGES.DEAD && <p>Cancelled</p>}
-        {bounty.bountyStage === STAGES.FULFILLED && <p>Fulfilled</p>}
-        {bounty.bountyStage === STAGES.PAID && <p>Paid</p>}
-      </div>
-      {bounty.fulfillment && bounty.fulfillment.link.length > 0 ? (
-        <div>
-          <p>{bounty.fulfillment.link}</p>
-          <p>{bounty.fulfillment.fulfiller}</p>
-          {bounty.bountyStage !== STAGES.PAID && (
-            <button onClick={() => onPayItem(index)} className="pure-button">
-              Pay
-            </button>
-          )}
-        </div>
-      ) : (
-        <div className="pure-form">
-          <div className="pure-group">
-            <label htmlFor="link">Research link</label>
-            <input
-              ref={el => (input = el)}
-              name="link"
-              type="text"
-              className="pure-input-1"
-              placeholder="Enter a link to your work"
-            />
-          </div>
-          <button onClick={() => onFulFullItem(index, input.value)} className="pure-button">
-            Submit
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
+const EXAMPLE_BOUNTIES = [
+  {
+    title: "What is the latest Ethereum news?",
+    deadline: new Date(),
+    specifications: "Find the latest blog posts and provide a brief summary.",
+    fulfillmentAmount: 0.01,
+    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
+    bountyStage: "Active"
+  },
+  {
+    title: "Summarize these papers on the blockchain",
+    specifications:
+      "I need you to read these papers about the blockchain and create a summary. Looking for one page of notes and should contain references to the papers.",
+    deadline: new Date(),
+    fulfillmentAmount: 0.1,
+    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
+    bountyStage: "Active"
+  }
+];
 
 export default class RequestPage extends React.Component {
   constructor(props) {
@@ -196,32 +159,29 @@ export default class RequestPage extends React.Component {
   }
 
   render() {
-    const { bounties } = this.state;
+    // const { bounties } = this.state;
+    const bounties = EXAMPLE_BOUNTIES;
     return (
-      <div>
-        <main className="RequestsPage container">
-          <div className="banner">
-            <h1 className="banner-head">
-              Find Tasks<br />
-            </h1>
+      <main className="RequestsPage container--narrow">
+        {bounties.length > 0 ? (
+          <div className="bountiesList">
+            {bounties.map((bounty, key) => (
+              <RequestItem
+                key={key}
+                index={key}
+                onFulFullItem={this.onFulFullItem}
+                onPayItem={this.onPayItem}
+                bounty={bounty}
+              />
+            ))}
           </div>
-          <div className="pure-g">
-            <center>
-              <div className="pure-u-1-2">
-                {bounties.map((bounty, key) => (
-                  <RequestItem
-                    key={key}
-                    index={key}
-                    onFulFullItem={this.onFulFullItem}
-                    onPayItem={this.onPayItem}
-                    bounty={bounty}
-                  />
-                ))}
-              </div>
-            </center>
+        ) : (
+          <div className="bountiesList--empty">
+            <div className="emoji">👋</div>
+            <p>No bounties available. Be the first to create one</p>
           </div>
-        </main>
-      </div>
+        )}
+      </main>
     );
   }
 }
