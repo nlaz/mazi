@@ -197,10 +197,9 @@ export default class RequestPage extends React.Component {
 
   render() {
     const { bounties } = this.state;
-    console.log("bounties", bounties);
     return (
       <div>
-        <main className="container container-style">
+        <main className="RequestsPage container">
           <div className="banner">
             <h1 className="banner-head">
               Find Tasks<br />

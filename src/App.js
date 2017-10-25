@@ -1,28 +1,15 @@
 import React, { Component } from "react";
 import getWeb3 from "./utils/getWeb3";
 
-import "./css/oswald.css";
-import "./css/open-sans.css";
-import "./css/pure-min.css";
 import "./App.css";
 import NewBountyPage from "./NewBountyPage";
 import RequestsPage from "./RequestsPage";
+import NavBar from "./NavBar";
 
 const PAGE = {
   NEW: "new",
   REQUESTS: "requests"
 };
-
-export function Pages({ page, state }) {
-  switch (page) {
-    case PAGE.NEW:
-      return <NewBountyPage />;
-    case PAGE.REQUESTS:
-      return <RequestsPage />;
-    default:
-      return <NewBountyPage />;
-  }
-}
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +18,7 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.NEW
+      page: PAGE.REQUESTS
     };
 
     this.onNavClick = this.onNavClick.bind(this);
@@ -60,33 +47,9 @@ class App extends Component {
     const { page } = this.state;
 
     return (
-      <div className="app-style App">
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <nav className="navbar pure-menu-heading pure-menu-horizontal navbar-cutsom">
-          <p className="pure-menu-heading pure-menu-link">
-            Mazi
-            //<img src="../logo.png"/>
-          </p>
-
-          <a onClick={() => this.onNavClick(PAGE.NEW)} className="pure-menu-heading">
-            New
-          </a>
-
-          <a onClick={() => this.onNavClick(PAGE.REQUESTS)} className="pure-menu-heading">
-            Requests
-          </a>
-        </nav>
-
-        <Pages page={page} state={this.state} />
-        <footer className="footer">
-          <p>
-            Made with <i className="fa fa-coffee" aria-hidden="true" /> at ETHWaterloo.
-          </p>
-        </footer>
+      <div className="App">
+        <NavBar onNavClick={this.onNavClick} />
+        {page === PAGE.NEW ? <NewBountyPage /> : <RequestsPage />}
       </div>
     );
   }

@@ -1,0 +1,45 @@
+/**
+ * Navbar styles
+ */
+
+.navbar {
+  background: #2479da;
+  border-bottom: 1px solid #1d6bc4;
+  color: #ffffff;
+  font-family: "Karla", sans-serif;
+  padding: 20px 0;
+}
+
+.navbar .container {
+  margin: auto;
+  max-width: 1080px;
+}
+
+.navbar .display-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-weight: bold;
+  font-size: 26px;
+}
+.navbar-link {
+  font-weight: normal;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.navbar-button {
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  padding: 12px 20px;
+  margin-right: 24px;
+}
+
+.navbar a:active,
+.navbar a:focus,
+.navbar a:hover {
+  background: #2479da;
+}
