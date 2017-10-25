@@ -34,6 +34,7 @@ export default class RequestPage extends React.Component {
 
     this.state = {
       bounties: [],
+      searchFilter: "",
       web3: undefined,
       accounts: []
     };
@@ -43,6 +44,7 @@ export default class RequestPage extends React.Component {
     this.onFulFullItem = this.onFulFullItem.bind(this);
     this.onCancelItem = this.onCancelItem.bind(this);
     this.onPayItem = this.onPayItem.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentWillMount() {
@@ -158,15 +160,35 @@ export default class RequestPage extends React.Component {
     };
   }
 
+  onSearch(e) {
+    const value = e.target.value;
+    this.setState(() => ({ searchFilter: value }));
+  }
+
   render() {
     // const { bounties } = this.state;
+    const { searchFilter } = this.state;
     const bounties = EXAMPLE_BOUNTIES;
+
+    const filteredBounties =
+      searchFilter.length > 0
+        ? bounties.filter(bounty => bounty.title.toLowerCase().indexOf(searchFilter) !== -1)
+        : bounties;
+
     return (
       <main className="RequestsPage">
         <div className="container--narrow">
-          {bounties.length > 0 ? (
+          <div className="display-flex">
+            <input
+              className="searchBar"
+              onChange={this.onSearch}
+              type="text"
+              placeholder="Search for bounties..."
+            />
+          </div>
+          {filteredBounties.length > 0 ? (
             <div className="bountiesList">
-              {bounties.map((bounty, key) => (
+              {filteredBounties.map((bounty, key) => (
                 <RequestItem
                   key={key}
                   index={key}
@@ -178,8 +200,17 @@ export default class RequestPage extends React.Component {
             </div>
           ) : (
             <div className="bountiesList--empty">
-              <div className="emoji">👋</div>
-              <p>No bounties available. Be the first to create one</p>
+              {bounties.length > 0 ? (
+                <div>
+                  <div className="emoji">🔭</div>
+                  <p>Can't find any matching bounties. Try something less specific.</p>
+                </div>
+              ) : (
+                <div>
+                  <div className="emoji">👋</div>
+                  <p>No bounties available. Be the first to create one</p>
+                </div>
+              )}
             </div>
           )}
         </div>

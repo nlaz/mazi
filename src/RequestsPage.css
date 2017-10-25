@@ -27,3 +27,21 @@
 .bountiesList .RequestItem:first-child {
   margin-top: 0;
 }
+
+.display-flex {
+  display: flex;
+  flex-direction: row;
+}
+.searchBar {
+  background: none;
+  border: 1px solid #acb1c0;
+  border-radius: 999px;
+  margin-left: auto;
+  padding: 6px 18px;
+  font-size: 12px;
+  width: 160px;
+  margin-bottom: 12px;
+}
+.searchBar::placeholder {
+  color: #acb1c0;
+}

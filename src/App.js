@@ -19,7 +19,7 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.NEW
+      page: PAGE.REQUESTS
     };
 
     this.onNavClick = this.onNavClick.bind(this);

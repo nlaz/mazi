@@ -7,7 +7,7 @@
   border: 1px solid #e6e8ec;
   border-radius: 4px;
   box-shadow: 0 2px 12px rgba(84, 85, 87, 0.04);
-  height: 120px;
+  height: 100px;
   padding: 24px 12px;
   position: relative;
 }
@@ -45,7 +45,7 @@
 
 .bountyInfo-title {
   color: #313233;
-  font-size: 24px;
+  font-size: 20px;
   letter-spacing: -.3px;
   margin: 0;
 }
