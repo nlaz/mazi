@@ -3,6 +3,8 @@ import moment from "moment";
 import getWeb3 from "./utils/getWeb3";
 import contract from "truffle-contract";
 
+import "./NewBountyPage.css";
+
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
 const deadlineOptions = [
@@ -92,46 +94,55 @@ export default class NewBountyPage extends React.Component {
   }
 
   render() {
+    const { currentAddress } = this.props;
     return (
-      <main className="NewBountyPage container">
-        <div className="myForm pure-u-1-2">
-          <form onSubmit={this.onBountySubmit} className="pure-form" style={{ marginTop: "30px" }}>
-            <fieldset className="myForm pure-group">
-              <label htmlFor="title">Title</label>
+      <main className="NewBountyPage">
+        <div className="container--narrow">
+          <h1 className="newBounty-pageTitle">Create Bounty</h1>
+          {currentAddress && (
+            <div className="newBounty-userInfo">
+              Current Address: <span className="address">{currentAddress}</span>
+            </div>
+          )}
+          <form className="newBounty-form" onSubmit={this.onBountySubmit}>
+            <div className="formGroup">
+              <label htmlFor="title">Bounty title</label>
               <input
                 name="contract_title"
                 type="text"
                 onChange={this.onInputChange}
-                className="pure-input-1"
+                className="formInput"
                 value={this.state.title}
-                placeholder="Enter a bounty title"
+                placeholder="Add a bounty title…"
               />
-              <br />
-              <label htmlFor="description">Description</label>
+            </div>
+            <div className="formGroup">
+              <label htmlFor="description">Bounty specifications</label>
               <textarea
                 name="contract_description"
                 onChange={this.onInputChange}
-                className="pure-input-1"
+                className="formInput"
                 value={this.state.description}
-                placeholder="How can Mazi help you?"
+                placeholder="Add some bounty specifications…"
               />
-              <br />
-              <label htmlFor="payout_amount">Payout Amount</label>
+            </div>
+            <div className="formGroup">
+              <label htmlFor="payout_amount">Payout amount</label>
               <input
                 name="contract_payout"
                 type="number"
                 onChange={this.onInputChange}
-                className="pure-input-1"
+                className="formInput"
                 value={this.state.payout_amount}
-                placeholder="0 ETH"
+                placeholder="0.1 ETH"
               />
-              <br />
+            </div>
+            <div className="formGroup">
               <label htmlFor="deadline">Deadline</label>
-              <br />
               <select
                 name="contract_deadline"
                 onChange={this.onInputChange}
-                className="pure-input-1"
+                className="formInput"
                 value={this.state.deadline}
               >
                 {deadlineOptions.map((option, key) => (
@@ -140,10 +151,10 @@ export default class NewBountyPage extends React.Component {
                   </option>
                 ))}
               </select>
-            </fieldset>
+            </div>
 
-            <button type="submit" className="pure-button pure-input-1-1 pure-button-primary">
-              Submit Request
+            <button type="submit" className="newBounty-submit button--primary">
+              Create
             </button>
           </form>
         </div>

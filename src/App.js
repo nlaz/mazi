@@ -7,7 +7,7 @@ import RequestsPage from "./RequestsPage";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
-const PAGE = {
+export const PAGE = {
   NEW: "new",
   REQUESTS: "requests"
 };
@@ -19,7 +19,7 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.REQUESTS
+      page: PAGE.NEW
     };
 
     this.onNavClick = this.onNavClick.bind(this);

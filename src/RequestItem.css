@@ -19,11 +19,11 @@
 
 .paymentInfo {
   align-items: center;
+  border-right: 1px solid #e6e8ec;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 115px;
-  border-right: 1px solid #e6e8ec;
 }
 
 .paymentInfo-amount {

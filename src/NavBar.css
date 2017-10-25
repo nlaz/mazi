@@ -5,6 +5,7 @@
 .navbar {
   background: #2479da;
   border-bottom: 1px solid #1d6bc4;
+  box-shadow: 0 1px 5px rgba(84, 85, 87, 0.2);
   color: #ffffff;
   font-family: "Karla", sans-serif;
   padding: 20px 0;

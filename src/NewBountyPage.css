@@ -1,0 +1,70 @@
+/**
+ * New Bounty Page stylesheet
+ */
+
+.NewBountyPage .container--narrow {
+  max-width: 780px;
+  margin: 80px auto;
+  color: #313233;
+}
+
+.newBounty-form {
+  margin-top: 30px;
+}
+
+.newBounty-pageTitle {
+  margin: 0;
+}
+
+.newBounty-userInfo {
+  color: #777a82;
+}
+
+.newBounty-userInfo .address {
+  color: #2479da;
+  text-decoration: underline;
+}
+
+.newBounty-form .formGroup {
+  margin-top: 6px;
+}
+.newBounty-form label {
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+}
+.newBounty-form .formInput {
+  box-sizing: border-box;
+  border: 1px solid #e6e8ec;
+  border-radius: 3px;
+  margin-top: 6px;
+  padding: 12px;
+  font-size: 14px;
+  width: 100%;
+}
+.newBounty-form textarea {
+  height: 110px;
+  resize: none;
+}
+.newBounty-form textarea::placeholder,
+.newBounty-form input::placeholder {
+  color: #acb1c0;
+}
+.newBounty-form select {
+  background: #ffffff;
+  height: 43px;
+}
+
+.newBounty-submit {
+  width: 100%;
+  margin-top: 32px;
+}
+.newBounty-submit.button--primary {
+  background: #2479da;
+  border: 1px solid #1d6ac3;
+  color: #ffffff;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+}
