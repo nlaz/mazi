@@ -1,0 +1,159 @@
+/**
+ * Bounty Details Page stylesheet
+ */
+
+.BountyDetailsPage .container--narrow {
+  max-width: 780px;
+  margin: 80px auto;
+  color: #313233;
+}
+
+.bountyDetails-pageTitle {
+  margin: 0;
+  font-size: 23px;
+}
+
+.bountyDetails-container {
+  background: #ffffff;
+  border: 1px solid #e6e8ec;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(84, 85, 87, 0.04);
+  padding: 24px 12px;
+  position: relative;
+  margin-top: 18px;
+}
+
+.bountyDetails-header {
+  height: 110px;
+}
+
+.display-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.paymentInfo {
+  align-items: center;
+  border-right: 1px solid #e6e8ec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 115px;
+}
+
+.paymentInfo-amount {
+  font-size: 36px;
+  font-weight: bold;
+  color: #1b76dd;
+}
+
+.paymentInfo-type {
+  font-weight: bold;
+  color: #313233;
+}
+
+.bountyInfo {
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bountyInfo-title {
+  color: #313233;
+  font-size: 20px;
+  letter-spacing: -.3px;
+  margin: 0;
+}
+
+.bountyInfo-details {
+  color: #777a82;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+}
+
+.bountyInfo-details .issuer {
+  color: #2479da;
+  text-decoration: underline;
+}
+
+.bountyInfo-details .status,
+.bountyInfo-details .deadline {
+  color: #313233;
+}
+.bountyInfo-arrowIcon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 24px;
+  margin: auto;
+  width: 10px;
+}
+
+.bountyDetails-specs {
+  margin: 12px;
+}
+
+.bountyDetails-specs .specs-details {
+  border: 1px solid #dbdde4;
+  border-radius: 3px;
+  color: #777a82;
+  padding: 12px 24px;
+  font-size: 16px;
+  background: #f8faff;
+}
+
+.submissions-header {
+  margin-top: 36px;
+  justify-content: space-between;
+}
+.submissions-count {
+  color: #777a82;
+}
+.button--primary {
+  background: #2479da;
+  border: 1px solid #1d6ac3;
+  color: #ffffff;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.submissions-container {
+  background: #ffffff;
+  border: 1px solid #e6e8ec;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(84, 85, 87, 0.04);
+  padding: 0 24px;
+  position: relative;
+  margin-top: 18px;
+}
+
+.submissions-container .submissionItem {
+  border-bottom: 1px solid #e6e8ec;
+  padding: 24px 12px;
+}
+.submissions-container .submissionItem:last-child {
+  border-bottom: none;
+}
+.submission-details {
+  display: flex;
+  flex-direction: column;
+  color: #777a82;
+}
+.submission-details .address {
+  color: #2479da;
+  text-decoration: underline;
+}
+.submission-details .date {
+  color: #313233;
+}
+.submissionItem {
+  justify-content: space-between;
+  align-items: center;
+}
+.submission-status {
+  color: #777a82;
+}

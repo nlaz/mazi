@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
-import NewBountyPage from "./NewBountyPage";
-import RequestsPage from "./RequestsPage";
+// import NewBountyPage from "./NewBountyPage";
+// import RequestsPage from "./RequestsPage";
+import BountyDetailsPage from "./BountyDetailsPage";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
 export const PAGE = {
   NEW: "new",
-  REQUESTS: "requests"
+  REQUESTS: "requests",
+  DETAILS: "details"
 };
 
 class App extends Component {
@@ -19,7 +21,7 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.REQUESTS
+      page: PAGE.DETAILS
     };
 
     this.onNavClick = this.onNavClick.bind(this);
@@ -50,7 +52,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar onNavClick={this.onNavClick} />
-        {page === PAGE.NEW ? <NewBountyPage /> : <RequestsPage />}
+        {page === PAGE.DETAILS && <BountyDetailsPage />}
         <Footer />
       </div>
     );
