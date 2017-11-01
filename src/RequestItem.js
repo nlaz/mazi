@@ -3,11 +3,11 @@ import moment from "moment";
 
 import "./RequestItem.css";
 
-export default function RequestItem({ bounty, index, onFulFullItem, onPayItem }) {
+export default function RequestItem({ bounty, index, onFulFullItem, onPayItem, onClick }) {
   var t = new Date(bounty.deadline);
   var formattedDeadline = moment(t).format("ddd, DD MMMM YYYY");
   return (
-    <div className="RequestItem display-flex">
+    <div onClick={onClick} className="RequestItem display-flex">
       <div className="paymentInfo">
         <span className="paymentInfo-amount">{bounty.fulfillmentAmount}</span>
         <span className="paymentInfo-type">ETH</span>

@@ -3,35 +3,6 @@ import moment from "moment";
 
 import "./BountyDetailsPage.css";
 
-const EXAMPLE_SUBMISSIONS = [
-  {
-    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
-    date: new Date(),
-    status: "Accepted"
-  },
-  {
-    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
-    date: new Date(),
-    status: "Accepted"
-  },
-  {
-    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
-    date: new Date(),
-    status: "Denied"
-  }
-];
-
-const EXAMPLE_BOUNTY = {
-  title: "Summarize these papers on the blockchain",
-  specifications:
-    "I need you to read these papers about the blockchain and create a summary. Looking for one page of notes and should contain references to the papers.",
-  deadline: new Date(),
-  fulfillmentAmount: 0.1,
-  issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
-  bountyStage: "Active",
-  submissions: EXAMPLE_SUBMISSIONS
-};
-
 export function SubmissionItem({ item }) {
   var t = new Date(item.date);
   var formattedDate = moment(t).format("ddd, DD MMMM YYYY");
@@ -52,7 +23,8 @@ export function SubmissionItem({ item }) {
 
 export default class BountyDetailsPage extends React.Component {
   render() {
-    const bounty = EXAMPLE_BOUNTY;
+    const { bounty } = this.props;
+    const { submissions = [] } = bounty;
     var t = new Date(bounty.deadline);
     var formattedDeadline = moment(t).format("ddd, DD MMMM YYYY");
     return (
@@ -88,12 +60,12 @@ export default class BountyDetailsPage extends React.Component {
           <div className="submissions-header display-flex">
             <div>
               <h1 className="bountyDetails-pageTitle">Submissions</h1>
-              <span className="submissions-count">{bounty.submissions.length} responses</span>
+              <span className="submissions-count">{submissions.length} responses</span>
             </div>
             <button className="button--primary">Add Submission</button>
           </div>
           <div className="submissions-container">
-            {bounty.submissions.map((item, key) => <SubmissionItem item={item} key={key} />)}
+            {submissions.map((item, key) => <SubmissionItem item={item} key={key} />)}
           </div>
         </div>
       </main>

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import getWeb3 from "./utils/getWeb3";
 
 import "./App.css";
-// import NewBountyPage from "./NewBountyPage";
-// import RequestsPage from "./RequestsPage";
+import NewBountyPage from "./NewBountyPage";
+import RequestsPage from "./RequestsPage";
 import BountyDetailsPage from "./BountyDetailsPage";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
@@ -21,10 +21,12 @@ class App extends Component {
     this.state = {
       storageValue: 0,
       web3: null,
-      page: PAGE.DETAILS
+      page: PAGE.REQUESTS,
+      bounty: {}
     };
 
     this.onNavClick = this.onNavClick.bind(this);
+    this.onBountyClick = this.onBountyClick.bind(this);
   }
 
   componentWillMount() {
@@ -46,13 +48,20 @@ class App extends Component {
     this.setState(() => ({ page: value }));
   }
 
+  onBountyClick(bounty) {
+    console.log("onBountyClick", bounty);
+    this.setState(() => ({ page: PAGE.DETAILS, bounty: bounty }));
+  }
+
   render() {
-    const { page } = this.state;
+    const { page, bounty } = this.state;
 
     return (
       <div className="App">
         <NavBar onNavClick={this.onNavClick} />
-        {page === PAGE.DETAILS && <BountyDetailsPage />}
+        {page === PAGE.NEW && <NewBountyPage />}
+        {page === PAGE.REQUESTS && <RequestsPage onBountyClick={this.onBountyClick} />}
+        {page === PAGE.DETAILS && <BountyDetailsPage bounty={bounty} />}
         <Footer />
       </div>
     );

@@ -8,26 +8,6 @@ import "./RequestsPage.css";
 
 const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 
-const EXAMPLE_BOUNTIES = [
-  {
-    title: "What is the latest Ethereum news?",
-    deadline: new Date(),
-    specifications: "Find the latest blog posts and provide a brief summary.",
-    fulfillmentAmount: 0.01,
-    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
-    bountyStage: "Active"
-  },
-  {
-    title: "Summarize these papers on the blockchain",
-    specifications:
-      "I need you to read these papers about the blockchain and create a summary. Looking for one page of notes and should contain references to the papers.",
-    deadline: new Date(),
-    fulfillmentAmount: 0.1,
-    issuer: "0x782396570dcc0Cb520b5E1661D4a359E3dc00f9e",
-    bountyStage: "Active"
-  }
-];
-
 export default class RequestPage extends React.Component {
   constructor(props) {
     super(props);
@@ -93,7 +73,7 @@ export default class RequestPage extends React.Component {
     simpleBounties.setProvider(web3.currentProvider);
 
     let bountiesInstance;
-
+    console.log("getBounties", simpleBounties);
     simpleBounties
       .deployed()
       .then(instance => {
@@ -114,6 +94,7 @@ export default class RequestPage extends React.Component {
           bounties: bounties,
           bountiesInstance: bountiesInstance
         });
+        console.log("bounties", bounties);
         this.getFulfillments(results.web3);
       });
   }
@@ -147,7 +128,7 @@ export default class RequestPage extends React.Component {
       deadline: moment(bounty[2].toNumber()).format("ddd MMM M, YYYY"),
       fulfillmentAmount: web3.fromWei(bounty[3].toNumber(), "ether"),
       title: bounty[4],
-      description: bounty[5],
+      specifications: bounty[5],
       bountyStage: bounty[6].toNumber()
     };
   }
@@ -166,9 +147,8 @@ export default class RequestPage extends React.Component {
   }
 
   render() {
-    // const { bounties } = this.state;
+    const { bounties } = this.state;
     const { searchFilter } = this.state;
-    const bounties = EXAMPLE_BOUNTIES;
 
     const filteredBounties =
       searchFilter.length > 0
@@ -194,6 +174,7 @@ export default class RequestPage extends React.Component {
                   index={key}
                   onFulFullItem={this.onFulFullItem}
                   onPayItem={this.onPayItem}
+                  onClick={() => this.props.onBountyClick(bounty)}
                   bounty={bounty}
                 />
               ))}
