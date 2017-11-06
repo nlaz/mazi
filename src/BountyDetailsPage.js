@@ -1,6 +1,9 @@
 import React from "react";
+import getWeb3 from "./utils/getWeb3";
 import moment from "moment";
+import contract from "truffle-contract";
 
+const SimpleBountiesContract = require("../build/contracts/SimpleBounties.json");
 import "./BountyDetailsPage.css";
 
 export function SubmissionItem({ item }) {
@@ -22,6 +25,49 @@ export function SubmissionItem({ item }) {
 }
 
 export default class BountyDetailsPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { showSubmissionForm: false, web3: undefined, accounts: [] };
+    this.onToggleSubmissionForm = this.onToggleSubmissionForm.bind(this);
+    this.onBountySubmission = this.onBountySubmission.bind(this);
+  }
+
+  componentWillMount() {
+    getWeb3
+      .then(results => {
+        results.web3.eth.getAccounts((err, accs) => {
+          this.setState(() => ({
+            web3: results.web3,
+            accounts: accs
+          }));
+        });
+      })
+      .catch(() => {
+        console.log("Error finding web3.");
+      });
+  }
+
+  onToggleSubmissionForm() {
+    this.setState(state => ({ showSubmissionForm: !state.showSubmissionForm }));
+  }
+
+  onBountySubmission(bountyId, value) {
+    const { web3 } = this.state;
+    console.log("onBountySubmission", web3);
+    if (web3) {
+      console.log("💢 onBountySubmission", bountyId, value);
+      const simpleBounties = contract(SimpleBountiesContract);
+      simpleBounties.setProvider(web3.currentProvider);
+      simpleBounties
+        .deployed()
+        .then(instance => {
+          return instance.fulfillBounty(bountyId, value);
+        })
+        .then(result => console.log("fulfillBounty", result));
+    }
+  }
+
   render() {
     const { bounty } = this.props;
     const { submissions = [] } = bounty;
@@ -57,12 +103,36 @@ export default class BountyDetailsPage extends React.Component {
               <div className="specs-details">{bounty.specifications}</div>
             </div>
           </div>
+          {this.state.showSubmissionForm && (
+            <div>
+              <div className="addSubmission-header">
+                <h1 className="bountyDetails-pageTitle">Add Submission</h1>
+              </div>
+              <div className="addSubmission-container">
+                <h3 className="addSubmission-label">Submission Results</h3>
+                <textarea
+                  ref={c => (this.submission = c)}
+                  placeholder="Add your bounty submission here..."
+                />
+                <button
+                  onClick={() => this.onBountySubmission(bounty.id, this.submission.value)}
+                  className="button--primary"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          )}
           <div className="submissions-header display-flex">
             <div>
               <h1 className="bountyDetails-pageTitle">Submissions</h1>
               <span className="submissions-count">{submissions.length} responses</span>
             </div>
-            <button className="button--primary">Add Submission</button>
+            {!this.state.showSubmissionForm && (
+              <button onClick={this.onToggleSubmissionForm} className="button--primary">
+                Add Submission
+              </button>
+            )}
           </div>
           <div className="submissions-container">
             {submissions.map((item, key) => <SubmissionItem item={item} key={key} />)}

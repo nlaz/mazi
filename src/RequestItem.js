@@ -3,7 +3,11 @@ import moment from "moment";
 
 import "./RequestItem.css";
 
-export default function RequestItem({ bounty, index, onFulFullItem, onPayItem, onClick }) {
+const status = {
+  0: "Active"
+};
+
+export default function RequestItem({ bounty, onFulFullItem, onPayItem, onClick }) {
   var t = new Date(bounty.deadline);
   var formattedDeadline = moment(t).format("ddd, DD MMMM YYYY");
   return (
@@ -22,7 +26,7 @@ export default function RequestItem({ bounty, index, onFulFullItem, onPayItem, o
             Deadline: <span className="deadline">{formattedDeadline}</span>
           </span>
           <span>
-            Status: <span className="status">{bounty.bountyStage}</span>
+            Status: <span className="status">{status[bounty.bountyStage]}</span>
           </span>
         </div>
         <img

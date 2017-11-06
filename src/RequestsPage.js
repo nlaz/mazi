@@ -73,7 +73,6 @@ export default class RequestPage extends React.Component {
     simpleBounties.setProvider(web3.currentProvider);
 
     let bountiesInstance;
-    console.log("getBounties", simpleBounties);
     simpleBounties
       .deployed()
       .then(instance => {
@@ -89,7 +88,7 @@ export default class RequestPage extends React.Component {
         return Promise.all(getBounties);
       })
       .then(results => {
-        const bounties = results.map(result => this.convertBounty(result));
+        const bounties = results.map((result, key) => this.convertBounty(result, key));
         this.setState({
           bounties: bounties,
           bountiesInstance: bountiesInstance
@@ -119,10 +118,11 @@ export default class RequestPage extends React.Component {
     });
   }
 
-  convertBounty(bounty) {
+  convertBounty(bounty, key) {
     const { web3 } = this.state;
 
     return {
+      id: key,
       issuer: bounty[0],
       arbiter: bounty[1],
       deadline: moment(bounty[2].toNumber()).format("ddd MMM M, YYYY"),
@@ -168,10 +168,9 @@ export default class RequestPage extends React.Component {
           </div>
           {filteredBounties.length > 0 ? (
             <div className="bountiesList">
-              {filteredBounties.map((bounty, key) => (
+              {filteredBounties.map(bounty => (
                 <RequestItem
-                  key={key}
-                  index={key}
+                  key={bounty.id}
                   onFulFullItem={this.onFulFullItem}
                   onPayItem={this.onPayItem}
                   onClick={() => this.props.onBountyClick(bounty)}

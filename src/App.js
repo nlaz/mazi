@@ -27,6 +27,7 @@ class App extends Component {
 
     this.onNavClick = this.onNavClick.bind(this);
     this.onBountyClick = this.onBountyClick.bind(this);
+    this.onBountyCreate = this.onBountyCreate.bind(this);
   }
 
   componentWillMount() {
@@ -49,8 +50,11 @@ class App extends Component {
   }
 
   onBountyClick(bounty) {
-    console.log("onBountyClick", bounty);
     this.setState(() => ({ page: PAGE.DETAILS, bounty: bounty }));
+  }
+
+  onBountyCreate() {
+    this.setState(() => ({ page: PAGE.REQUESTS }));
   }
 
   render() {
@@ -59,7 +63,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar onNavClick={this.onNavClick} />
-        {page === PAGE.NEW && <NewBountyPage />}
+        {page === PAGE.NEW && <NewBountyPage onBountyCreate={this.onBountyCreate} />}
         {page === PAGE.REQUESTS && <RequestsPage onBountyClick={this.onBountyClick} />}
         {page === PAGE.DETAILS && <BountyDetailsPage bounty={bounty} />}
         <Footer />

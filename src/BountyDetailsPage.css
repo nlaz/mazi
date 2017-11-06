@@ -2,6 +2,7 @@
  * Bounty Details Page stylesheet
  */
 
+/* Bounty Information Section */
 .BountyDetailsPage .container--narrow {
   max-width: 780px;
   margin: 80px auto;
@@ -99,11 +100,51 @@
   border: 1px solid #dbdde4;
   border-radius: 3px;
   color: #777a82;
-  padding: 12px 24px;
+  padding: 12px 16px;
   font-size: 16px;
   background: #f8faff;
 }
 
+/* Add Submission Section */
+.addSubmission-header {
+  margin-top: 36px;
+}
+.addSubmission-container {
+  background: #ffffff;
+  border: 1px solid #e6e8ec;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(84, 85, 87, 0.04);
+  margin-top: 18px;
+  padding: 16px 24px;
+}
+.addSubmission-label {
+  margin: 0;
+}
+.addSubmission-container textarea {
+  background: #f8faff;
+  box-sizing: border-box;
+  border: 1px solid #dbdde4;
+  border-radius: 3px;
+  color: #777a82;
+  font-size: 16px;
+  height: 100px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  resize: none;
+  width: 100%;
+}
+.addSubmission-container textarea::placeholder {
+  color: #acb1c0;
+}
+.addSubmission-container button {
+  display: block;
+  margin-left: auto;
+  margin-top: 5px;
+  padding-right: 18px;
+  padding-left: 18px;
+}
+
+/* Submissions List Section */
 .submissions-header {
   margin-top: 36px;
   justify-content: space-between;

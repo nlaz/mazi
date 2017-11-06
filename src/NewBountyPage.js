@@ -82,8 +82,8 @@ export default class NewBountyPage extends React.Component {
           { from: accounts[0], value: payoutStringAmount }
         );
       })
-      .then(result => {
-        return bountiesInstance.getNumBounties.call();
+      .then(() => {
+        return this.props.onBountyCreate();
       });
   }
 
@@ -131,6 +131,7 @@ export default class NewBountyPage extends React.Component {
               <input
                 name="contract_payout"
                 type="number"
+                step="0.01"
                 onChange={this.onInputChange}
                 className="formInput"
                 value={this.state.payout_amount}
